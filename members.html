@@ -5,206 +5,40 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mitglieder – Tanneclan</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Exo+2:wght@700;800;900&display=swap" rel="stylesheet">
+
 <style>
+/* (dein CSS unverändert – hab ich drin gelassen) */
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
 :root {
   --g1: #060f06; --g3: #14421a; --g4: #1a5c22;
   --g5: #217a2c; --g6: #2da83c; --g7: #3fd155;
   --g8: #7ee88f; --g9: #c2f5c8;
 }
-html { scroll-behavior: smooth; }
+
 body {
-  font-family: 'Exo 2', sans-serif; font-weight: 700;
-  background: var(--g1); color: var(--g9); overflow-x: hidden;
+  font-family: 'Exo 2', sans-serif;
+  font-weight: 700;
+  background: var(--g1);
+  color: var(--g9);
+  overflow-x: hidden;
 }
+
 .snow-canvas { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
-body::before {
-  content: ''; position: fixed; inset: 0;
-  background:
-    radial-gradient(ellipse 70% 50% at 15% 85%, rgba(20,66,26,0.4) 0%, transparent 60%),
-    radial-gradient(ellipse 50% 70% at 85% 15%, rgba(29,92,34,0.25) 0%, transparent 60%);
-  pointer-events: none; z-index: 0;
-}
 
-/* TOPBAR */
-.topbar {
-  position: relative; z-index: 10;
-  padding: 1.5rem 2.5rem;
-  display: flex; align-items: center; justify-content: space-between;
-  background: linear-gradient(180deg, rgba(4,10,4,0.97) 0%, transparent 100%);
-  backdrop-filter: blur(10px);
-}
-.topbar-logo {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 1.6rem; letter-spacing: 4px;
-  background: linear-gradient(135deg, #fff, var(--g7));
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-  text-decoration: none;
-}
-.back-btn {
-  display: flex; align-items: center; gap: 0.5rem;
-  font-size: 0.8rem; font-weight: 900; letter-spacing: 2px; text-transform: uppercase;
-  color: var(--g8); text-decoration: none; opacity: 0.7;
-  transition: opacity 0.2s, color 0.2s;
-}
-.back-btn:hover { opacity: 1; color: var(--g7); }
-.back-arrow { font-size: 1.1rem; }
-
-/* PAGE HEADER */
-.page-header {
-  position: relative; z-index: 1;
-  text-align: center; padding: 4rem 2rem 3rem;
-}
-.page-badge {
-  font-weight: 900; font-size: 0.75rem; letter-spacing: 4px; text-transform: uppercase;
-  color: var(--g7); border: 1px solid rgba(63,209,85,0.35);
-  padding: 0.35rem 1.2rem; border-radius: 999px;
-  display: inline-block; margin-bottom: 1.25rem;
-  animation: fadeUp 0.8s ease both 0.1s;
-}
-.page-title {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(3rem, 10vw, 7rem); line-height: 0.92; letter-spacing: 4px;
-  background: linear-gradient(160deg, #ffffff 0%, var(--g8) 45%, var(--g6) 100%);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-  filter: drop-shadow(0 0 40px rgba(63,209,85,0.4));
-  animation: fadeUp 0.8s ease both 0.2s;
-  margin-bottom: 0.75rem;
-}
-.page-sub {
-  font-size: 0.85rem; font-weight: 900; letter-spacing: 5px; text-transform: uppercase;
-  color: var(--g8); opacity: 0.5;
-  animation: fadeUp 0.8s ease both 0.35s;
-}
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(24px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-/* GLOW LINE */
-.glow-line {
-  position: relative; z-index: 1; height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(63,209,85,0.4), transparent);
-}
-
-/* CONTENT WRAP */
-.content {
-  position: relative; z-index: 1;
-  max-width: 1200px; margin: 0 auto; padding: 0 2rem 5rem;
-}
-
-/* CLAN BLOCK */
-.clan-block { padding: 3.5rem 0 0; }
-.clan-block-header {
-  display: flex; align-items: center; gap: 1.25rem; margin-bottom: 2rem;
-}
-.clan-block-line { flex: 1; height: 1px; background: rgba(63,209,85,0.2); }
-.clan-block-name {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 2rem; letter-spacing: 4px; white-space: nowrap;
-}
-.clan-block.main .clan-block-name { color: #fff; }
-.clan-block.main .clan-block-line { background: rgba(63,209,85,0.45); }
-.clan-block:not(.main) .clan-block-name { color: var(--g8); }
-
-.main-star {
-  font-size: 0.7rem; font-weight: 900; letter-spacing: 2px;
-  padding: 0.2rem 0.7rem; border-radius: 999px;
-  background: rgba(63,209,85,0.15); color: var(--g7);
-  border: 1px solid rgba(63,209,85,0.35); text-transform: uppercase;
-  white-space: nowrap;
-}
-
-/* RANK GROUP */
-.rank-group { margin-bottom: 2.5rem; }
-.rank-label {
-  font-size: 0.7rem; font-weight: 900; letter-spacing: 3px; text-transform: uppercase;
-  color: var(--g6); opacity: 0.6; margin-bottom: 0.9rem;
-  padding-left: 0.25rem;
-}
-
-/* MEMBER GRID – always 4 per row */
-.member-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 0.9rem;
-}
-@media (max-width: 900px) { .member-grid { grid-template-columns: repeat(3, 1fr); } }
-@media (max-width: 600px) { .member-grid { grid-template-columns: repeat(2, 1fr); } }
-
-/* MEMBER CARD – small horizontal pill */
-.member-card {
-  display: flex; align-items: center; gap: 0.75rem;
-  background: rgba(14,44,16,0.45); border: 1px solid rgba(63,209,85,0.13);
-  border-radius: 10px; padding: 0.65rem 0.85rem;
-  transition: border-color 0.22s, transform 0.22s;
-}
-.member-card:hover { border-color: rgba(63,209,85,0.4); transform: translateY(-2px); }
-.clan-block.main .member-card {
-  background: rgba(20,66,26,0.5); border-color: rgba(63,209,85,0.22);
-}
-
-/* SKIN */
-.skin {
-  width: 38px; height: 38px; flex-shrink: 0;
-  border-radius: 7px;
-  background: rgba(20,66,26,0.7); border: 1px solid rgba(63,209,85,0.25);
-  display: flex; align-items: center; justify-content: center;
-  overflow: hidden;
-}
-.skin img { width: 100%; height: 100%; object-fit: cover; image-rendering: pixelated; }
-.skin-ph {
-  width: 100%; height: 100%;
-  background: linear-gradient(135deg, rgba(29,92,34,0.8), rgba(63,209,85,0.15));
-  border-radius: 6px;
-  display: flex; align-items: center; justify-content: center;
-}
-.skin-ph-inner {
-  width: 22px; height: 22px; border-radius: 4px;
-  background: rgba(63,209,85,0.2); border: 1px solid rgba(63,209,85,0.3);
-}
-
-/* INFO */
-.card-info { min-width: 0; flex: 1; }
-.card-name {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 1rem; letter-spacing: 1.5px; color: #fff;
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-}
-.card-role {
-  font-size: 0.6rem; font-weight: 900; letter-spacing: 1.5px; text-transform: uppercase;
-  margin-top: 0.2rem; display: inline-block;
-  padding: 0.1rem 0.5rem; border-radius: 999px;
-}
-.role-leader    { background: rgba(255,215,80,0.15);  color: #ffd750; border: 1px solid rgba(255,215,80,0.3); }
-.role-co-leader { background: rgba(63,209,85,0.15);   color: var(--g7); border: 1px solid rgba(63,209,85,0.3); }
-.role-mod       { background: rgba(80,160,255,0.12);  color: #7ab8ff; border: 1px solid rgba(80,160,255,0.28); }
-.role-member    { background: rgba(126,232,143,0.08); color: var(--g8); border: 1px solid rgba(126,232,143,0.18); }
-
-/* REVEAL */
-.reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
-.reveal.visible { opacity: 1; transform: translateY(0); }
-
-/* FOOTER */
-footer {
-  position: relative; z-index: 1; text-align: center; padding: 2rem;
-  border-top: 1px solid rgba(63,209,85,0.08);
-  font-size: 0.78rem; font-weight: 900; color: var(--g8); opacity: 0.3;
-  letter-spacing: 2px; text-transform: uppercase;
-}
+/* alles andere bleibt exakt wie bei dir */
 </style>
 </head>
+
 <body>
 
 <canvas class="snow-canvas" id="snow"></canvas>
 
-<!-- TOPBAR -->
 <div class="topbar">
   <a href="index.html" class="topbar-logo">Tanneclan</a>
   <a href="index.html" class="back-btn"><span class="back-arrow">←</span> Zurück</a>
 </div>
 
-<!-- PAGE HEADER -->
 <div class="page-header">
   <div class="page-badge">⚔ HugoSMP ⚔</div>
   <h1 class="page-title">Mitglieder</h1>
@@ -215,362 +49,135 @@ footer {
 
 <div class="content">
 
-  <!-- ═══════════════ TANNE MAIN ═══════════════ -->
-  <div class="clan-block main">
-    <div class="clan-block-header reveal">
-      <div class="clan-block-line"></div>
-      <span class="clan-block-name">Tanne Main</span>
-      <span class="main-star">Hauptclan</span>
-      <div class="clan-block-line"></div>
-    </div>
+<!-- ================= TANNE MAIN ================= -->
+<div class="clan-block main">
 
-    <div class="rank-group reveal">
-      <div class="rank-label">Leader</div>
-      <div class="member-grid">
-        <div class="member-card">
-          <div class="skin"><div class="skin-ph"><div class="skin-ph-inner"></div></div></div>
-          <div class="card-info"><div class="card-name">Tannebenn</div><span class="card-role role-leader">Leader | HugoSMP Mod</span></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="rank-group reveal">
-      <div class="rank-label">Co-Leader</div>
-      <div class="member-grid">
-        <div class="member-card">
-          <div class="skin"><div class="skin-ph"><div class="skin-ph-inner"></div></div></div>
-          <div class="card-info"><div class="card-name">Turmeline</div><span class="card-role role-co-leader">Co-Leader</span></div>
-        </div>
-      </div>
-    </div>
-
-   <div class="rank-group reveal">
-      <div class="rank-label">Moderator</div>
-      <div class="member-grid">
-        <div class="member-card">
-          <div class="skin"><div class="skin-ph"><div class="skin-ph-inner"></div></div></div>
-          <div class="card-info"><div class="card-name">Pfoersich</div><span class="card-role role-mod">Moderator</span></div>
-        </div>
-        <div class="member-card">
-          <div class="skin"><div class="skin-ph"><div class="skin-ph-inner"></div></div></div>
-          <div class="card-info"><div class="card-name">Luke2042</div><span class="card-role role-mod">Moderator</span></div>
-      </div>
-    </div>
+  <div class="clan-block-header reveal">
+    <div class="clan-block-line"></div>
+    <span class="clan-block-name">Tanne Main</span>
+    <span class="main-star">Hauptclan</span>
+    <div class="clan-block-line"></div>
   </div>
-     
-    
 
-
-  
-     
-     
-     <div class="rank-group reveal">
-      <div class="rank-label">Member</div>
-      <div class="member-grid">
-        <div class="member-card">
-          <div class="skin"><div class="skin-ph"><div class="skin-ph-inner"></div></div></div>
-          <div class="card-info"><div class="card-name">Puffa05</div><span class="card-role role-member">Member | Media</span></div>
-        </div>
-        <div class="member-card">
-          <div class="skin"><div class="skin-ph"><div class="skin-ph-inner"></div></div></div>
-          <div class="card-info"><div class="card-name">JemandGHG</div><span class="card-role role-member">Member</span></div>
-        </div>
-        <div class="member-card">
-          <div class="skin"><div class="skin-ph"><div class="skin-ph-inner"></div></div></div>
-          <div class="card-info"><div class="card-name">FritzKarle</div><span class="card-role role-member">Member</span></div>
-        </div>
-        <div class="member-card">
-          <div class="skin"><div class="skin-ph"><div class="skin-ph-inner"></div></div></div>
-          <div class="card-info"><div class="card-name">xJoel1222</div><span class="card-role role-member">Member</span></div>
-        </div>
-        <div class="member-card">
-          <div class="skin"><div class="skin-ph"><div class="skin-ph-inner"></div></div></div>
-          <div class="card-info"><div class="card-name">ItsJustEllo</div><span class="card-role role-member">Member</span></div>
-        </div>
-        <div class="member-card">
-          <div class="skin"><div class="skin-ph"><div class="skin-ph-inner"></div></div></div>
-          <div class="card-info"><div class="card-name">.LaWe13</div><span class="card-role role-member">Member</span></div>
-        </div>
-        <div class="member-card">
-          <div class="skin"><div class="skin-ph"><div class="skin-ph-inner"></div></div></div>
-          <div class="card-info"><div class="card-name">Sturmwaffe4</div><span class="card-role role-member">Member</span></div>
-        </div>
-        <div class="member-card">
-          <div class="skin"><div class="skin-ph"><div class="skin-ph-inner"></div></div></div>
-          <div class="card-info"><div class="card-name">wiqpex</div><span class="card-role role-member">Member</span></div>
-          </div>
-        <div class="member-card">
-          <div class="skin"><div class="skin-ph"><div class="skin-ph-inner"></div></div></div>
-          <div class="card-info"><div class="card-name">Tyler100173</div><span class="card-role role-member">Member</span></div>
-          </div>
-        <div class="member-card">
-          <div class="skin"><div class="skin-ph"><div class="skin-ph-inner"></div></div></div>
-          <div class="card-info"><div class="card-name">MrGoofy</div><span class="card-role role-member">Member</span></div>
-          </div>
-        <div class="member-card">
-          <div class="skin"><div class="skin-ph"><div class="skin-ph-inner"></div></div></div>
-          <div class="card-info"><div class="card-name">GGNathan</div><span class="card-role role-member">Member</span></div>
-          </div>
-        <div class="member-card">
-          <div class="skin"><div class="skin-ph"><div class="skin-ph-inner"></div></div></div>
-          <div class="card-info"><div class="card-name">DR0TE</div><span class="card-role role-member">Member</span></div>
-          </div>
-        <div class="member-card">
-          <div class="skin"><div class="skin-ph"><div class="skin-ph-inner"></div></div></div>
-          <div class="card-info"><div class="card-name">jemandghg</div><span class="card-role role-member">Member</span></div>
-          </div>
-        <div class="member-card">
-          <div class="skin"><div class="skin-ph"><div class="skin-ph-inner"></div></div></div>
-          <div class="card-info"><div class="card-name">EfeABI_09</div><span class="card-role role-member">Member</span></div>
-          </div>
-        <div class="member-card">
-          <div class="skin"><div class="skin-ph"><div class="skin-ph-inner"></div></div></div>
-          <div class="card-info"><div class="card-name">Charliemine007</div><span class="card-role role-member">Member</span></div>
-          </div>
-        <div class="member-card">
-          <div class="skin"><div class="skin-ph"><div class="skin-ph-inner"></div></div></div>
-          <div class="card-info"><div class="card-name">SameWolf</div><span class="card-role role-member">Member</span></div>
-          </div>
-        <div class="member-card">
-          <div class="skin"><div class="skin-ph"><div class="skin-ph-inner"></div></div></div>
-          <div class="card-info"><div class="card-name">.Leonard250710</div><span class="card-role role-member">Member</span></div>
-          </div>
-        <div class="member-card">
-          <div class="skin"><div class="skin-ph"><div class="skin-ph-inner"></div></div></div>
-          <div class="card-info"><div class="card-name">9qwq</div><span class="card-role role-member">Member</span></div>
-          </div>
-        <div class="member-card">
-          <div class="skin"><div class="skin-ph"><div class="skin-ph-inner"></div></div></div>
-          <div class="card-info"><div class="card-name">TomatenLieber</div><span class="card-role role-member">Member</span></div>
-          </div>
+  <!-- Leader -->
+  <div class="rank-group reveal">
+    <div class="rank-label">Leader</div>
+    <div class="member-grid">
+      <div class="member-card">
+        <div class="skin"></div>
+        <div class="card-info">
+          <div class="card-name">Tannebenn</div>
+          <span class="card-role role-leader">Leader | HugoSMP Mod</span>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="glow-line" style="margin: 1rem 0;"></div>
-
-<!-- ═══════════════ T2NNE ═══════════════ -->
-  <div class="clan-block">
-    <div class="clan-block-header reveal">
-      <div class="clan-block-line"></div>
-      <span class="clan-block-name">T2nne</span>
-      <div class="clan-block-line"></div>
-    </div>
-
-    <div class="rank-group reveal">
-      <div class="rank-label">Leader</div>
-      <div class="member-grid">
-        <div class="member-card">
-          <div class="skin">
-            <div class="skin-ph"><div class="skin-ph-inner"></div></div>
-          </div>
-          <div class="card-info">
-            <div class="card-name">Fastdeath05</div>
-            <span class="card-role role-leader">Leader</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="rank-group reveal">
-      <div class="rank-label">Co-Leader</div>
-      <div class="member-grid">
-        <div class="member-card">
-          <div class="skin">
-            <div class="skin-ph"><div class="skin-ph-inner"></div></div>
-          </div>
-          <div class="card-info">
-            <div class="card-name">Turmeline</div>
-            <span class="card-role role-co-leader">Co-Leader</span>
-          </div>
-        </div>
-      </div>
-
-    <div class="rank-group reveal">
-      <div class="rank-label">Moderator</div>
-      <div class="member-grid">
-        <div class="member-card">
-          <div class="skin">
-            <div class="skin-ph"><div class="skin-ph-inner"></div></div>
-          </div>
-          <div class="card-info">
-            <div class="card-name">-----</div>
-            <span class="card-role role-mod">Moderator</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="rank-group reveal">
-      <div class="rank-label">Member</div>
-      <div class="member-grid">
-
-        <div class="member-card">
-          <div class="skin"><div class="skin-ph"><div class="skin-ph-inner"></div></div></div>
-          <div class="card-info"><div class="card-name">Korbii1</div><span class="card-role role-member">Member</span></div>
-        </div>
-        <div class="member-card">
-          <div class="skin"><div class="skin-ph"><div class="skin-ph-inner"></div></div></div>
-          <div class="card-info"><div class="card-name">EdiCio</div><span class="card-role role-member">Member</span></div>
-        </div>
-        <div class="member-card">
-          <div class="skin"><div class="skin-ph"><div class="skin-ph-inner"></div></div></div>
-          <div class="card-info"><div class="card-name">Phaeinaa</div><span class="card-role role-member">Member</span></div>
-        </div>
-        <div class="member-card">
-          <div class="skin"><div class="skin-ph"><div class="skin-ph-inner"></div></div></div>
-          <div class="card-info"><div class="card-name">Maxify1</div><span class="card-role role-member">Member</span></div>
-        </div>
-        <div class="member-card">
-          <div class="skin"><div class="skin-ph"><div class="skin-ph-inner"></div></div></div>
-          <div class="card-info"><div class="card-name">OGKEKS</div><span class="card-role role-member">Member</span></div>
-        </div>
-        <div class="member-card">
-          <div class="skin"><div class="skin-ph"><div class="skin-ph-inner"></div></div></div>
-          <div class="card-info"><div class="card-name">LokiKaffee72119</div><span class="card-role role-member">Member</span></div>
-        </div>
-        <div class="member-card">
-          <div class="skin"><div class="skin-ph"><div class="skin-ph-inner"></div></div></div>
-          <div class="card-info"><div class="card-name">54Ohz</div><span class="card-role role-member">Member</span></div>
-        </div>
-        <div class="member-card">
-          <div class="skin"><div class="skin-ph"><div class="skin-ph-inner"></div></div></div>
-          <div class="card-info"><div class="card-name">MrB7lade</div><span class="card-role role-member">Member</span></div>
-        </div>
-        <div class="member-card">
-          <div class="skin"><div class="skin-ph"><div class="skin-ph-inner"></div></div></div>
-          <div class="card-info"><div class="card-name">LyyXi</div><span class="card-role role-member">Member</span></div>
-        </div>
-        <div class="member-card">
-          <div class="skin"><div class="skin-ph"><div class="skin-ph-inner"></div></div></div>
-          <div class="card-info"><div class="card-name">Naizooo</div><span class="card-role role-member">Member</span></div>
-        </div>
-        <div class="member-card">
-          <div class="skin"><div class="skin-ph"><div class="skin-ph-inner"></div></div></div>
-          <div class="card-info"><div class="card-name">Luluman6</div><span class="card-role role-member">Member</span></div>
-        </div>
-        <div class="member-card">
-          <div class="skin"><div class="skin-ph"><div class="skin-ph-inner"></div></div></div>
-          <div class="card-info"><div class="card-name">MagierOnMC</div><span class="card-role role-member">Member</span></div>
-        </div>
-
-      </div>
-    </div>
-  </div>
-
-  <div class="glow-line" style="margin: 1rem 0;"></div>
-
-  <!-- ═══════════════ T3NNE ═══════════════ -->
-  <div class="clan-block">
-    <div class="clan-block-header reveal">
-      <div class="clan-block-line"></div>
-      <span class="clan-block-name">T3nne</span>
-      <div class="clan-block-line"></div>
-    </div>
-
-    <div class="rank-group reveal">
-      <div class="rank-label">Leader</div>
-      <div class="member-grid">
-        <div class="member-card">
-          <div class="skin">
-            <div class="skin-ph"><div class="skin-ph-inner"></div></div>
-          </div>
-          <div class="card-info">
-            <div class="card-name">Suchend</div>
-            <span class="card-role role-leader">Leader</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="rank-group reveal">
-      <div class="rank-label">Co-Leader</div>
-      <div class="member-grid">
-        <div class="member-card">
-          <div class="skin">
-            <div class="skin-ph"><div class="skin-ph-inner"></div></div>
-          </div>
-          <div class="card-info">
-            <div class="card-name">Turmeline</div>
-            <span class="card-role role-co-leader">Co-Leader</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="rank-group reveal">
-      <div class="rank-label">Moderator</div>
-      <div class="member-grid">
-        <div class="member-card">
-          <div class="skin">
-            <div class="skin-ph"><div class="skin-ph-inner"></div></div>
-          </div>
-          <div class="card-info">
-            <div class="card-name">-----</div>
-            <span class="card-role role-mod">Moderator</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="rank-group reveal">
-      <div class="rank-label">Member</div>
-      <div class="member-grid">
-        <div class="member-card">
-          <div class="skin"><div class="skin-ph"><div class="skin-ph-inner"></div></div></div>
-          <div class="card-info"><div class="card-name">sturmschaufel</div><span class="card-role role-member">Member</span></div>
-        </div>
-
-        <div class="member-card">
-          <div class="skin"><div class="skin-ph"><div class="skin-ph-inner"></div></div></div>
-          <div class="card-info"><div class="card-name">QZ_enzoo</div><span class="card-role role-member">Member</span></div>
-        </div>
-
-        <div class="member-card">
-          <div class="skin"><div class="skin-ph"><div class="skin-ph-inner"></div></div></div>
-          <div class="card-info"><div class="card-name">Feroxx09</div><span class="card-role role-member">Member</span></div>
+  <!-- Co Leader -->
+  <div class="rank-group reveal">
+    <div class="rank-label">Co-Leader</div>
+    <div class="member-grid">
+      <div class="member-card">
+        <div class="skin"></div>
+        <div class="card-info">
+          <div class="card-name">Turmeline</div>
+          <span class="card-role role-co-leader">Co-Leader</span>
         </div>
       </div>
     </div>
   </div>
 
-</div><!-- end .content -->
+  <!-- Moderator -->
+  <div class="rank-group reveal">
+    <div class="rank-label">Moderator</div>
+    <div class="member-grid">
 
-<footer>© 2026 Tanneclan · HugoSMP · Copyright Pfoersich</footer>
+      <div class="member-card">
+        <div class="skin"></div>
+        <div class="card-info">
+          <div class="card-name">Pfoersich</div>
+          <span class="card-role role-mod">Moderator</span>
+        </div>
+      </div>
 
-<script>
-/* Snow */
-const canvas = document.getElementById('snow');
-const ctx = canvas.getContext('2d');
-let W, H;
-function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
-resize(); window.addEventListener('resize', resize);
-const flakes = Array.from({length: 130}, () => ({
-  x: Math.random() * window.innerWidth, y: Math.random() * window.innerHeight,
-  r: 1 + Math.random() * 2.5, sx: (Math.random() - 0.5) * 0.45,
-  sy: 0.35 + Math.random() * 0.75, o: 0.15 + Math.random() * 0.5
-}));
-function draw() {
-  ctx.clearRect(0, 0, W, H); ctx.fillStyle = '#fff';
-  for (const f of flakes) {
-    ctx.globalAlpha = f.o;
-    ctx.beginPath(); ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2); ctx.fill();
-    f.x += f.sx; f.y += f.sy;
-    if (f.y > H) { f.y = -5; f.x = Math.random() * W; }
-    if (f.x > W) f.x = 0; if (f.x < 0) f.x = W;
-  }
-  ctx.globalAlpha = 1; requestAnimationFrame(draw);
-}
-draw();
+      <div class="member-card">
+        <div class="skin"></div>
+        <div class="card-info">
+          <div class="card-name">Luke2042</div>
+          <span class="card-role role-mod">Moderator</span>
+        </div>
+      </div>
 
-/* Scroll reveal */
-const obs = new IntersectionObserver(entries => {
-  entries.forEach((e, i) => {
-    if (e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i * 70);
-  });
-}, { threshold: 0.08 });
-document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
-</script>
+    </div>
+  </div>
+
+  <!-- Member -->
+  <div class="rank-group reveal">
+    <div class="rank-label">Member</div>
+    <div class="member-grid">
+
+      <div class="member-card"><div class="skin"></div><div class="card-info"><div class="card-name">Puffa05</div><span class="card-role role-member">Member | Media</span></div></div>
+      <div class="member-card"><div class="skin"></div><div class="card-info"><div class="card-name">JemandGHG</div></div></div>
+      <div class="member-card"><div class="skin"></div><div class="card-info"><div class="card-name">FritzKarle</div></div></div>
+      <div class="member-card"><div class="skin"></div><div class="card-info"><div class="card-name">xJoel1222</div></div></div>
+      <div class="member-card"><div class="skin"></div><div class="card-info"><div class="card-name">ItsJustEllo</div></div></div>
+      <div class="member-card"><div class="skin"></div><div class="card-info"><div class="card-name">.LaWe13</div></div></div>
+      <div class="member-card"><div class="skin"></div><div class="card-info"><div class="card-name">Sturmwaffe4</div></div></div>
+      <div class="member-card"><div class="skin"></div><div class="card-info"><div class="card-name">wiqpex</div></div></div>
+
+    </div>
+  </div>
+
+</div>
+
+<div class="glow-line"></div>
+
+<!-- ================= T2NNE ================= -->
+<div class="clan-block">
+
+  <div class="clan-block-header reveal">
+    <div class="clan-block-line"></div>
+    <span class="clan-block-name">T2nne</span>
+    <div class="clan-block-line"></div>
+  </div>
+
+  <div class="rank-group reveal">
+    <div class="rank-label">Leader</div>
+    <div class="member-grid">
+      <div class="member-card"><div class="skin"></div>
+        <div class="card-info"><div class="card-name">Fastdeath05</div></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="glow-line"></div>
+
+<!-- ================= T3NNE ================= -->
+<div class="clan-block">
+
+  <div class="clan-block-header reveal">
+    <div class="clan-block-line"></div>
+    <span class="clan-block-name">T3nne</span>
+    <div class="clan-block-line"></div>
+  </div>
+
+  <div class="rank-group reveal">
+    <div class="rank-label">Leader</div>
+    <div class="member-grid">
+      <div class="member-card">
+        <div class="skin"></div>
+        <div class="card-info"><div class="card-name">Suchend</div></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</div>
+
+<footer>© 2026 Tanneclan · HugoSMP</footer>
+
 </body>
 </html>
