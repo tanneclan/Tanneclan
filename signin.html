@@ -38,6 +38,15 @@ body::before {
   background:
     radial-gradient(ellipse 70% 50% at 15% 85%, rgba(20,66,26,0.4), transparent 60%),
     radial-gradient(ellipse 50% 70% at 85% 15%, rgba(45,168,60,0.25), transparent 60%);
+  z-index: 0;
+}
+
+/* SNOW */
+canvas {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
 }
 
 /* BACK BUTTON */
@@ -46,21 +55,14 @@ body::before {
   top: 20px;
   right: 20px;
 
-  width: 44px;
-  height: 44px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  padding: 0.6rem 1rem;
+  border-radius: 12px;
 
   text-decoration: none;
-
-  font-size: 1.4rem;
   font-weight: 900;
+  font-size: 0.85rem;
 
   color: var(--g8);
-
-  border-radius: 12px;
 
   background: rgba(20,66,26,0.4);
   border: 1px solid rgba(63,209,85,0.25);
@@ -77,11 +79,10 @@ body::before {
   box-shadow: 0 0 25px rgba(63,209,85,0.2);
 }
 
-/* CENTER BOX */
+/* CENTER */
 .wrapper {
   position: relative;
   z-index: 2;
-
   height: 100vh;
 
   display: flex;
@@ -89,6 +90,7 @@ body::before {
   justify-content: center;
 }
 
+/* LOGIN BOX */
 .login-box {
   width: 100%;
   max-width: 520px;
@@ -102,8 +104,6 @@ body::before {
 
   backdrop-filter: blur(10px);
 
-  box-shadow: 0 0 45px rgba(63,209,85,0.08);
-
   transition: transform 0.15s ease;
 }
 
@@ -113,11 +113,12 @@ body::before {
   font-size: 0.75rem;
   font-weight: 900;
   letter-spacing: 3px;
-  text-transform: uppercase;
   color: var(--g7);
+
   border: 1px solid rgba(63,209,85,0.35);
   padding: 0.4rem 1rem;
   border-radius: 999px;
+
   margin-bottom: 1.5rem;
 }
 
@@ -125,9 +126,11 @@ body::before {
   font-family: 'Bebas Neue', sans-serif;
   font-size: 4.5rem;
   letter-spacing: 4px;
+
   background: linear-gradient(160deg,#fff,var(--g8),var(--g6));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+
   margin-bottom: 0.5rem;
 }
 
@@ -135,7 +138,6 @@ body::before {
   font-size: 0.85rem;
   font-weight: 900;
   letter-spacing: 4px;
-  text-transform: uppercase;
   color: var(--g8);
   opacity: 0.6;
   margin-bottom: 2rem;
@@ -146,7 +148,6 @@ body::before {
   font-size: 0.8rem;
   font-weight: 900;
   letter-spacing: 2px;
-  text-transform: uppercase;
   color: var(--g8);
   margin-bottom: 0.5rem;
   display: block;
@@ -184,8 +185,6 @@ body::before {
 
   font-weight: 900;
   letter-spacing: 2px;
-  text-transform: uppercase;
-
   color: white;
 
   background: linear-gradient(135deg,var(--g4),var(--g7));
@@ -215,14 +214,15 @@ body::before {
   letter-spacing: 5px;
 }
 
-/* fade */
-.hidden { display:none; }
+.hidden { display: none; }
 </style>
 </head>
 
 <body>
 
-<a class="back-btn" href="index.html">←</a>
+<canvas id="snow"></canvas>
+
+<a class="back-btn" href="index.html">← Zurück</a>
 
 <div class="wrapper">
 
@@ -235,14 +235,13 @@ body::before {
     <div class="sub">Minecraft Account verbinden</div>
 
     <label class="input-label">Minecraft Name</label>
-
-    <input id="mcName" class="input" value="Tanneben">
+    <input id="mcName" class="input" placeholder="z.B. Tanneben">
 
     <button class="btn" onclick="generateCode()">Code generieren</button>
 
     <div id="result" class="result hidden">
       <div>Dein Code</div>
-      <div class="code" id="code">0000</div>
+      <div class="code" id="code">----</div>
     </div>
 
   </div>
@@ -266,11 +265,10 @@ async function generateCode() {
   document.getElementById("code").innerText = data.code;
 }
 
-/* 🎯 CURSOR TILT */
+/* CURSOR TILT */
 const box = document.querySelector(".login-box");
 
 document.addEventListener("mousemove", (e) => {
-
   const x = (window.innerWidth / 2 - e.clientX) / 30;
   const y = (window.innerHeight / 2 - e.clientY) / 30;
 
@@ -280,6 +278,54 @@ document.addEventListener("mousemove", (e) => {
 document.addEventListener("mouseleave", () => {
   box.style.transform = "rotateY(0deg) rotateX(0deg)";
 });
+
+/* SNOW */
+const canvas = document.getElementById('snow');
+const ctx = canvas.getContext('2d');
+
+let W, H;
+
+function resize() {
+  W = canvas.width = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+}
+
+resize();
+window.addEventListener('resize', resize);
+
+const flakes = Array.from({length: 120}, () => ({
+  x: Math.random() * window.innerWidth,
+  y: Math.random() * window.innerHeight,
+  r: 1 + Math.random() * 2.5,
+  sx: (Math.random() - 0.5) * 0.4,
+  sy: 0.4 + Math.random() * 0.7,
+  o: 0.15 + Math.random() * 0.5
+}));
+
+function draw() {
+  ctx.clearRect(0, 0, W, H);
+
+  for (const f of flakes) {
+    ctx.globalAlpha = f.o;
+    ctx.beginPath();
+    ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
+    ctx.fillStyle = "#fff";
+    ctx.fill();
+
+    f.x += f.sx;
+    f.y += f.sy;
+
+    if (f.y > H) {
+      f.y = -5;
+      f.x = Math.random() * W;
+    }
+  }
+
+  ctx.globalAlpha = 1;
+  requestAnimationFrame(draw);
+}
+
+draw();
 </script>
 
 </body>
