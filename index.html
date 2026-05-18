@@ -111,6 +111,36 @@ body::before {
   width: 17px;
   height: 17px;
 }
+  .impressum-btn {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+
+  padding: 0.6rem 1rem;
+  border-radius: 12px;
+
+  text-decoration: none;
+  font-weight: 900;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+
+  color: var(--g8, #7ee88f);
+
+  background: rgba(20,66,26,0.4);
+  border: 1px solid rgba(63,209,85,0.25);
+
+  backdrop-filter: blur(8px);
+
+  transition: 0.2s ease;
+
+  z-index: 10;
+}
+
+.impressum-btn:hover {
+  transform: translateY(-3px);
+  border-color: rgba(63,209,85,0.6);
+  box-shadow: 0 0 25px rgba(63,209,85,0.2);
+}
 .btn-green:hover { transform: translateY(-3px); box-shadow: 0 0 45px rgba(63,209,85,0.5); }
 .btn-ghost {
   background: transparent; color: var(--g8); border: 2px solid rgba(126,232,143,0.4);
@@ -759,6 +789,7 @@ footer {
 </div>
 <center>
 <footer>© 2026 Tanneclan · Alle Rechte vorbehalten · Keine offizielle Website von HugoSMP</footer>
+  <a class="impressum-btn" href="impressum.html">Impressum</a>
   
 </ceter>
 <script>
