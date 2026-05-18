@@ -1,25 +1,309 @@
-<h1>Impressum</h1>
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<p>
-Hugo SMP<br>
-Minecraft Clan / Community
-</p>
+<title>Hugo SMP Impressum</title>
 
-<p>
-Verantwortlich für den Inhalt:<br>
-[Dein Name oder Nickname]
-</p>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Exo+2:wght@700;800;900&display=swap" rel="stylesheet">
 
-<p>
-Kontakt:<br>
-E-Mail: [deine@email.de]<br>
-Discord: [dein Discordname]
-</p>
+<style>
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-<p>
-Diese Website steht in keiner Verbindung zu 
-:contentReference[oaicite:0]{index=0} 
-oder 
-:contentReference[oaicite:1]{index=1}.
-Minecraft ist eine Marke von Mojang Studios.
-</p>
+:root {
+  --g1: #060f06;
+  --g4: #1a5c22;
+  --g6: #2da83c;
+  --g7: #3fd155;
+  --g8: #7ee88f;
+}
+
+body {
+  font-family: 'Exo 2', sans-serif;
+  background: var(--g1);
+  color: white;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 50% at 15% 85%, rgba(20,66,26,0.4), transparent 60%),
+    radial-gradient(ellipse 50% 70% at 85% 15%, rgba(45,168,60,0.25), transparent 60%);
+  z-index: 0;
+}
+
+/* SNOW */
+canvas {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* BACK BUTTON */
+.back-btn {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+
+  padding: 0.6rem 1rem;
+  border-radius: 12px;
+
+  text-decoration: none;
+  font-weight: 900;
+  font-size: 0.85rem;
+
+  color: var(--g8);
+
+  background: rgba(20,66,26,0.4);
+  border: 1px solid rgba(63,209,85,0.25);
+
+  backdrop-filter: blur(8px);
+
+  transition: 0.2s;
+  z-index: 10;
+}
+
+.back-btn:hover {
+  transform: translateY(-3px);
+  border-color: rgba(63,209,85,0.6);
+  box-shadow: 0 0 25px rgba(63,209,85,0.2);
+}
+
+/* CENTER */
+.wrapper {
+  position: relative;
+  z-index: 2;
+  height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 1rem;
+}
+
+/* BOX */
+.impressum-box {
+  width: 100%;
+  max-width: 700px;
+
+  background: rgba(14,44,16,0.55);
+  border: 1px solid rgba(63,209,85,0.2);
+
+  border-radius: 22px;
+
+  padding: 3rem;
+
+  backdrop-filter: blur(10px);
+
+  transition: transform 0.15s ease;
+}
+
+/* TEXT */
+.badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 900;
+  letter-spacing: 3px;
+  color: var(--g7);
+
+  border: 1px solid rgba(63,209,85,0.35);
+  padding: 0.4rem 1rem;
+  border-radius: 999px;
+
+  margin-bottom: 1.5rem;
+}
+
+.title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 4rem;
+  letter-spacing: 4px;
+
+  background: linear-gradient(160deg,#fff,var(--g8),var(--g6));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  margin-bottom: 0.5rem;
+}
+
+.sub {
+  font-size: 0.85rem;
+  font-weight: 900;
+  letter-spacing: 4px;
+  color: var(--g8);
+  opacity: 0.6;
+  margin-bottom: 2rem;
+}
+
+.info {
+  background: rgba(20,66,26,0.4);
+  border: 1px solid rgba(63,209,85,0.15);
+
+  border-radius: 16px;
+
+  padding: 1.5rem;
+
+  line-height: 1.8;
+}
+
+.info h2 {
+  margin-bottom: 1rem;
+  color: var(--g8);
+  font-size: 1rem;
+  letter-spacing: 2px;
+}
+
+.info p {
+  color: rgba(255,255,255,0.88);
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+}
+
+.highlight {
+  color: var(--g8);
+  font-weight: 900;
+}
+
+/* MOBILE */
+@media(max-width:700px){
+
+  .title {
+    font-size: 3rem;
+  }
+
+  .impressum-box {
+    padding: 2rem;
+  }
+
+}
+
+/* TILT */
+.impressum-box:hover {
+  box-shadow: 0 0 40px rgba(63,209,85,0.15);
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="snow"></canvas>
+
+<a class="back-btn" href="index.html">← Zurück</a>
+
+<div class="wrapper">
+
+  <div class="impressum-box">
+
+    <div class="badge">Hugo SMP</div>
+
+    <div class="title">IMPRESSUM</div>
+
+    <div class="sub">Minecraft Community Information</div>
+
+    <div class="info">
+
+      <h2>Verantwortlich für den Inhalt</h2>
+
+      <p>
+        <span class="highlight">Benutzername:</span> Pfirsichbaum28
+      </p>
+
+      <p>
+        <span class="highlight">E-Mail:</span> Tanne.bewerbungen@gmail.com
+      </p>
+
+      <h2>Hinweis</h2>
+
+      <p>
+        Diese Website steht in keiner Verbindung zu
+        :contentReference[oaicite:0]{index=0}
+        oder
+        :contentReference[oaicite:1]{index=1}.
+      </p>
+
+      <p>
+        Minecraft ist eine Marke von Mojang Studios.
+      </p>
+
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+/* CURSOR TILT */
+const box = document.querySelector(".impressum-box");
+
+document.addEventListener("mousemove", (e) => {
+  const x = (window.innerWidth / 2 - e.clientX) / 30;
+  const y = (window.innerHeight / 2 - e.clientY) / 30;
+
+  box.style.transform = `rotateY(${x}deg) rotateX(${y}deg)`;
+});
+
+document.addEventListener("mouseleave", () => {
+  box.style.transform = "rotateY(0deg) rotateX(0deg)";
+});
+
+/* SNOW */
+const canvas = document.getElementById('snow');
+const ctx = canvas.getContext('2d');
+
+let W, H;
+
+function resize() {
+  W = canvas.width = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+}
+
+resize();
+window.addEventListener('resize', resize);
+
+const flakes = Array.from({length: 120}, () => ({
+  x: Math.random() * window.innerWidth,
+  y: Math.random() * window.innerHeight,
+  r: 1 + Math.random() * 2.5,
+  sx: (Math.random() - 0.5) * 0.4,
+  sy: 0.4 + Math.random() * 0.7,
+  o: 0.15 + Math.random() * 0.5
+}));
+
+function draw() {
+  ctx.clearRect(0, 0, W, H);
+
+  for (const f of flakes) {
+    ctx.globalAlpha = f.o;
+    ctx.beginPath();
+    ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
+    ctx.fillStyle = "#fff";
+    ctx.fill();
+
+    f.x += f.sx;
+    f.y += f.sy;
+
+    if (f.y > H) {
+      f.y = -5;
+      f.x = Math.random() * W;
+    }
+  }
+
+  ctx.globalAlpha = 1;
+  requestAnimationFrame(draw);
+}
+
+draw();
+</script>
+
+</body>
+</html>
