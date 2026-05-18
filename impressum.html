@@ -83,33 +83,22 @@ canvas {
 .wrapper {
   position: relative;
   z-index: 2;
-  height: 100vh;
+
+  min-height: 100vh;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  padding: 1rem;
-}
-
-/* BOX */
-.impressum-box {
-  width: 100%;
-  max-width: 700px;
-
-  background: rgba(14,44,16,0.55);
-  border: 1px solid rgba(63,209,85,0.2);
-
-  border-radius: 22px;
-
-  padding: 3rem;
-
-  backdrop-filter: blur(10px);
-
-  transition: transform 0.15s ease;
+  text-align: center;
+  padding: 2rem;
 }
 
 /* TEXT */
+.content {
+  max-width: 700px;
+}
+
 .badge {
   display: inline-block;
   font-size: 0.75rem;
@@ -126,7 +115,7 @@ canvas {
 
 .title {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 4rem;
+  font-size: 5rem;
   letter-spacing: 4px;
 
   background: linear-gradient(160deg,#fff,var(--g8),var(--g6));
@@ -142,31 +131,17 @@ canvas {
   letter-spacing: 4px;
   color: var(--g8);
   opacity: 0.6;
-  margin-bottom: 2rem;
+
+  margin-bottom: 3rem;
 }
 
 .info {
-  background: rgba(20,66,26,0.4);
-  border: 1px solid rgba(63,209,85,0.15);
-
-  border-radius: 16px;
-
-  padding: 1.5rem;
-
-  line-height: 1.8;
-}
-
-.info h2 {
-  margin-bottom: 1rem;
-  color: var(--g8);
-  font-size: 1rem;
-  letter-spacing: 2px;
+  line-height: 2;
 }
 
 .info p {
+  font-size: 1rem;
   color: rgba(255,255,255,0.88);
-  font-size: 0.95rem;
-  margin-bottom: 1rem;
 }
 
 .highlight {
@@ -174,22 +149,17 @@ canvas {
   font-weight: 900;
 }
 
+.space {
+  margin-top: 2rem;
+}
+
 /* MOBILE */
 @media(max-width:700px){
 
   .title {
-    font-size: 3rem;
+    font-size: 3.5rem;
   }
 
-  .impressum-box {
-    padding: 2rem;
-  }
-
-}
-
-/* TILT */
-.impressum-box:hover {
-  box-shadow: 0 0 40px rgba(63,209,85,0.15);
 }
 </style>
 </head>
@@ -202,7 +172,7 @@ canvas {
 
 <div class="wrapper">
 
-  <div class="impressum-box">
+  <div class="content">
 
     <div class="badge">Hugo SMP</div>
 
@@ -212,23 +182,20 @@ canvas {
 
     <div class="info">
 
-      <h2>Verantwortlich für den Inhalt</h2>
-
       <p>
-        <span class="highlight">Benutzername:</span> Pfirsichbaum28
+        <span class="highlight">Benutzername:</span>
+        Pfirsichbaum28
       </p>
 
       <p>
-        <span class="highlight">E-Mail:</span> Tanne.bewerbungen@gmail.com
+        <span class="highlight">E-Mail:</span>
+        Tanne.bewerbungen@gmail.com
       </p>
 
-      <h2>Hinweis</h2>
+      <div class="space"></div>
 
       <p>
-        Diese Website steht in keiner Verbindung zu
-        :contentReference[oaicite:0]{index=0}
-        oder
-        :contentReference[oaicite:1]{index=1}.
+        Diese Website steht in keiner Verbindung zu Mojang Studios oder Microsoft.
       </p>
 
       <p>
@@ -242,20 +209,6 @@ canvas {
 </div>
 
 <script>
-/* CURSOR TILT */
-const box = document.querySelector(".impressum-box");
-
-document.addEventListener("mousemove", (e) => {
-  const x = (window.innerWidth / 2 - e.clientX) / 30;
-  const y = (window.innerHeight / 2 - e.clientY) / 30;
-
-  box.style.transform = `rotateY(${x}deg) rotateX(${y}deg)`;
-});
-
-document.addEventListener("mouseleave", () => {
-  box.style.transform = "rotateY(0deg) rotateX(0deg)";
-});
-
 /* SNOW */
 const canvas = document.getElementById('snow');
 const ctx = canvas.getContext('2d');
@@ -284,8 +237,10 @@ function draw() {
 
   for (const f of flakes) {
     ctx.globalAlpha = f.o;
+
     ctx.beginPath();
     ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
+
     ctx.fillStyle = "#fff";
     ctx.fill();
 
